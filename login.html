@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NurturedChoice — Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #3D2B1F;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Background pattern */
+  body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(200,130,10,0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(141,198,63,0.10) 0%, transparent 50%);
+  }
+
+  .login-card {
+    background: #fff;
+    border-radius: 24px;
+    width: 100%;
+    max-width: 420px;
+    padding: 48px 40px 40px;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.35);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Top green bar */
+  .login-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #C0392B 0%, #8DC63F 100%);
+    border-radius: 24px 24px 0 0;
+  }
+
+  .login-logo {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .login-logo .logo-icon {
+    width: 72px;
+    height: 72px;
+    background: #3D2B1F;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+    font-size: 2rem;
+  }
+
+  .login-logo h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #3D2B1F;
+    line-height: 1.1;
+  }
+
+  .login-logo p {
+    font-size: 0.82rem;
+    color: #7A6654;
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #6B4226;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid #E8DCC8;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-family: 'DM Sans', sans-serif;
+    color: #1A1209;
+    background: #FDFAF5;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .form-control:focus {
+    outline: none;
+    border-color: #C8820A;
+    box-shadow: 0 0 0 3px rgba(200,130,10,0.12);
+    background: #fff;
+  }
+
+  .btn-login {
+    width: 100%;
+    padding: 13px;
+    background: #C0392B;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.2s, transform 0.1s;
+    letter-spacing: 0.5px;
+  }
+
+  .btn-login:hover { background: #a93226; }
+  .btn-login:active { transform: scale(0.99); }
+  .btn-login:disabled { background: #ccc; cursor: not-allowed; }
+
+  .error-msg {
+    background: #FDECEA;
+    color: #C0392B;
+    border: 1px solid #f5c6c3;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+    display: none;
+  }
+
+  .error-msg.show { display: block; }
+
+  .login-footer {
+    text-align: center;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid #E8DCC8;
+    font-size: 0.78rem;
+    color: #7A6654;
+  }
+
+  .spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
+    display: none;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .config-warning {
+    background: #FEF9E7;
+    border: 1px solid #F0D060;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 0.83rem;
+    color: #7d6608;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .config-warning strong { display: block; margin-bottom: 4px; font-size: 0.88rem; }
+  .config-warning code {
+    background: rgba(0,0,0,0.07);
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 0.82rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="login-card">
+  <div class="login-logo">
+    <div class="logo-icon">🍯</div>
+    <h1>NurturedChoice</h1>
+    <p>Products — Staff Portal</p>
+  </div>
+
+  <div class="config-warning" id="configWarning" style="display:none">
+    <strong>⚠️ Setup Required</strong>
+    Open <code>supabase.js</code> and paste your Supabase
+    <code>SUPABASE_URL</code> and <code>SUPABASE_ANON</code> key.
+    See the setup guide below.
+  </div>
+
+  <div class="error-msg" id="errorMsg"></div>
+
+  <div class="form-group">
+    <label class="form-label">Email Address</label>
+    <input type="email" class="form-control" id="loginEmail"
+      placeholder="yourname@nurturedchoice.co.ke" autocomplete="email">
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Password</label>
+    <input type="password" class="form-control" id="loginPassword"
+      placeholder="Enter your password" autocomplete="current-password">
+  </div>
+
+  <button class="btn-login" id="loginBtn" onclick="doLogin()">
+    <span class="spinner" id="spinner"></span>
+    Sign In
+  </button>
+
+  <div class="login-footer">
+    NurturedChoice Products &nbsp;·&nbsp; Nairobi, Kenya<br>
+    +254 726 441 206 &nbsp;·&nbsp; nurturedchoice@yahoo.com
+  </div>
+</div>
+
+<script src="supabase.js"></script>
+<script src="auth.js"></script>
+<script>
+  // Check if already logged in
+  if (Auth.isLoggedIn()) window.location.href = 'index.html';
+
+  // Check if Supabase is configured
+  if (SUPABASE_URL === 'PASTE_YOUR_PROJECT_URL_HERE') {
+    document.getElementById('configWarning').style.display = 'block';
+  }
+
+  // Allow Enter key to submit
+  document.getElementById('loginPassword').addEventListener('keydown', e => {
+    if (e.key === 'Enter') doLogin();
+  });
+
+  async function doLogin() {
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    const errEl = document.getElementById('errorMsg');
+    const btn = document.getElementById('loginBtn');
+    const spinner = document.getElementById('spinner');
+
+    errEl.classList.remove('show');
+
+    if (!email || !password) {
+      errEl.textContent = 'Please enter your email and password.';
+      errEl.classList.add('show');
+      return;
+    }
+
+    if (SUPABASE_URL === 'PASTE_YOUR_PROJECT_URL_HERE') {
+      errEl.textContent = 'Supabase is not configured yet. Please follow the setup guide in supabase.js.';
+      errEl.classList.add('show');
+      return;
+    }
+
+    btn.disabled = true;
+    spinner.style.display = 'inline-block';
+    btn.childNodes[1].textContent = ' Signing in...';
+
+    try {
+      const session = await SB.signIn(email, password);
+      Auth.saveSession(session);
+      window.location.href = 'index.html';
+    } catch(err) {
+      errEl.textContent = err.message || 'Login failed. Check your email and password.';
+      errEl.classList.add('show');
+      btn.disabled = false;
+      spinner.style.display = 'none';
+      btn.childNodes[1].textContent = ' Sign In';
+    }
+  }
+</script>
+</body>
+</html>
