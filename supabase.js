@@ -5,8 +5,8 @@
 // You get these from: https://supabase.com → Your Project → Settings → API
 // ============================================================
 
-const SUPABASE_URL  = 'PASTE_YOUR_PROJECT_URL_HERE';
-const SUPABASE_ANON = 'PASTE_YOUR_ANON_KEY_HERE';
+const SUPABASE_URL  = 'https://cnhuvrgvtfbxntmbrmew.supabase.co/rest/v1/';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNuaHV2cmd2dGZieG50bWJybWV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgzNDk0MjEsImV4cCI6MjA5MzkyNTQyMX0.xwpjpDyHcGFYKw2SHO9AhHZ_Lmi8p3izvj8YMMhnl6k';
 
 // ---- Supabase REST helper ----
 const SB = {
